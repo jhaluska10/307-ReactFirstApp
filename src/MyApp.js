@@ -20,7 +20,6 @@ function MyApp() {
       setCharacters(updated);
       try {
           const response = await axios.delete(mystr);
-          console.log(response);
           return response.data.users_list;     
        }
        catch (error){
@@ -41,7 +40,7 @@ function MyApp() {
       async function fetchAll(){
         try {
            const response = await axios.get('http://localhost:5000/users');
-           console.log(response);
+           //console.log(response);
            return response.data.users_list;     
         }
         catch (error){
@@ -57,9 +56,12 @@ function MyApp() {
             setCharacters(result);
        });
    }, [] );
+
+   
    async function makePostCall(person){
     try {
        const response = await axios.post('http://localhost:5000/users', person);
+       //console.log(response.status)
        return response;
     }
     catch (error) {
@@ -72,7 +74,7 @@ function MyApp() {
     function updateList(person) { 
       makePostCall(person).then( result => {
       if (result && result.status === 201)
-      setCharacters([...characters, person] );
+      setCharacters([...characters, result.data] );
       });
       
     }
